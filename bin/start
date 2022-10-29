@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+ini_set('display_errors', 'on');
+ini_set('display_startup_errors', 'on');
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+set_error_handler(static function ($severity, $message, $file, $line) {
+    if ($severity & error_reporting()) {
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+    return false;
+});
+
+! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
+! defined('APP_PATH') && defined('BASE_PATH') && define('APP_PATH', BASE_PATH . '/src');
+! defined('SWOOLE_HOOK_FLAGS') && defined('SWOOLE_HOOK_ALL') && define('SWOOLE_HOOK_FLAGS', SWOOLE_HOOK_ALL);
+
+require BASE_PATH . '/vendor/autoload.php';
+
+(static function () {
+    KPanel\ApplicationContext::setContainer(new KPanel\Lib\DI\Container());
+    (new KPanel\Application())->run();
+})();

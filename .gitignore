@@ -1,0 +1,5 @@
+/vendor/
+*.lock
+phpstan.neon
+.idea
+phpstan-baseline.neon
