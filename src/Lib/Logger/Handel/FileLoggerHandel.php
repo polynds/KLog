@@ -13,7 +13,7 @@ class FileLoggerHandel implements LoggerHandelInterface
 {
     public function write(FormatterInterface $formatter)
     {
-        file_put_contents($this->getLogName(), $formatter->handel());
+        file_put_contents($this->getLogName(), $formatter->handel(), FILE_APPEND);
     }
 
     private function getLogName(): string

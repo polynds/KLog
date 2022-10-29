@@ -9,6 +9,7 @@ namespace KLog\Server;
 use KLog\Lib\Config\ConfigInterface;
 use KLog\Lib\Event\EventDispatcher;
 use KLog\Lib\Logger\LoggerInterface;
+use KLog\Lib\Middleware\Middleware;
 use KLog\Lib\Router\Router;
 use KLog\Server\Event\ServerStartEvent;
 use KLog\Server\Event\ServerStopEvent;
@@ -69,8 +70,7 @@ class Server
                 $response->end('');
                 return;
             }
-            $data = $this->router->handel($action);
-            $this->logger->info($data);
+            $data = (new Middleware($this->logger, $this->router))->handel($action, $request);
             $response->end(Json::encode($data));
         });
     }
