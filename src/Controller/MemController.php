@@ -6,8 +6,11 @@ declare(strict_types=1);
  */
 namespace KLog\Controller;
 
+use KLog\Annotation\Log;
+
 class MemController extends AbstractController
 {
+    #[Log]
     public function index(): array
     {
         $str = shell_exec('more /proc/meminfo');

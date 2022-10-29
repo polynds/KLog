@@ -42,11 +42,10 @@ class Router
         }
     }
 
-    public function handel(string $action)
+    public function handle(string $action)
     {
-        $action = ltrim($action,'/');
-        $handel = $this->match($action);
-        return $handel->index();
+        $action = ltrim($action, '/');
+        return $this->match($action);
     }
 
     protected function match(string $name): ControllerInterface

@@ -70,7 +70,7 @@ class Server
                 $response->end('');
                 return;
             }
-            $data = (new Middleware($this->logger, $this->router))->handel($action, $request);
+            $data = (new Middleware($this->logger, $this->router))->handle($action, $request);
             $response->end(Json::encode($data));
         });
     }
