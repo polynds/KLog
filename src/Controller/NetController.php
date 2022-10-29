@@ -6,11 +6,9 @@ declare(strict_types=1);
  */
 namespace KLog\Controller;
 
-use Psr\Http\Message\ServerRequestInterface;
-
 class NetController extends AbstractController
 {
-    public function index(ServerRequestInterface $request): array
+    public function index(): array
     {
         $str = shell_exec('more /proc/net/dev');
         $pattern = '/(eth[0-9]+):\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([0-9]+)/';

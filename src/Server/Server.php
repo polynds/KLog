@@ -9,9 +9,10 @@ namespace KLog\Server;
 use KLog\Lib\Config\ConfigInterface;
 use KLog\Lib\Event\EventDispatcher;
 use KLog\Lib\Logger\LoggerInterface;
-use KLog\Server\Event\RouterDispatchEvent;
+use KLog\Lib\Router\Router;
 use KLog\Server\Event\ServerStartEvent;
 use KLog\Server\Event\ServerStopEvent;
+use KLog\Utils\Json;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Http\Server as SwooleServer;
 use Swoole\Http\Request;
@@ -29,8 +30,11 @@ class Server
 
     protected EventDispatcher $eventDispatcher;
 
-    public function __construct(ConfigInterface $config, EventDispatcher $eventDispatcher, LoggerInterface $logger)
+    protected Router $router;
+
+    public function __construct(ConfigInterface $config, EventDispatcher $eventDispatcher, LoggerInterface $logger, Router $router)
     {
+        $this->router = $router;
         $this->config = $config;
         $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
@@ -56,8 +60,17 @@ class Server
     protected function handleHttp()
     {
         $this->httpServer->handle('/', function (Request $request, Response $response) {
-            $this->eventDispatcher->dispatch(new RouterDispatchEvent($request, $response));
-            $response->end('hello world');
+            if (! $request->server['request_uri']) {
+                $response->end('Controller not found!');
+                return;
+            }
+            $action = $request->server['request_uri'];
+            if ($action == '/favicon.ico') {
+                $response->end('');
+                return;
+            }
+            $data = $this->router->handel($action);
+            $response->end(Json::encode($data));
         });
     }
 }

@@ -10,8 +10,6 @@ use KLog\Exception\ControllerNotFoundException;
 use KLog\Exception\RouterNotFoundException;
 use KLog\Lib\Config\ConfigInterface;
 use KLog\Lib\DI\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
@@ -44,11 +42,11 @@ class Router
         }
     }
 
-    public function handel(ServerRequestInterface $psrRequest, ResponseInterface $psrResponse)
+    public function handel(string $action)
     {
-        $name = '';
-        $handel = $this->match($name);
-        return $handel->index($psrRequest);
+        $action = ltrim($action,'/');
+        $handel = $this->match($action);
+        return $handel->index();
     }
 
     protected function match(string $name): ControllerInterface

@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 namespace KLog\Controller;
 
-use Psr\Http\Message\ServerRequestInterface;
-
 class CpuController extends AbstractController
 {
-    public function index(ServerRequestInterface $request): array
+    public function index(): array
     {
         $str = shell_exec('more /proc/stat');
         $pattern = '/(cpu[0-9]?)[\\s]+([0-9]+)[\\s]+([0-9]+)[\\s]+([0-9]+)[\\s]+([0-9]+)[\\s]+([0-9]+)[\\s]+([0-9]+)[\\s]+([0-9]+)/';

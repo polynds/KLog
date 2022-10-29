@@ -6,9 +6,7 @@ declare(strict_types=1);
  */
 namespace KLog\Lib\Router;
 
-use Psr\Http\Message\ServerRequestInterface;
-
 interface ControllerInterface
 {
-    public function index(ServerRequestInterface $request): array;
+    public function index(): array;
 }
