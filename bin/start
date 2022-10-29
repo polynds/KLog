@@ -1,5 +1,10 @@
 #!/usr/bin/env php
 <?php
+/**
+ * happy coding!!!
+ */
+use KLog\ApplicationContext;
+
 ini_set('display_errors', 'on');
 ini_set('display_startup_errors', 'on');
 
@@ -19,6 +24,6 @@ set_error_handler(static function ($severity, $message, $file, $line) {
 require BASE_PATH . '/vendor/autoload.php';
 
 (static function () {
-    KPanel\ApplicationContext::setContainer(new KPanel\Lib\DI\Container());
-    (new KPanel\Application())->run();
+    ApplicationContext::setContainer(new KLog\Lib\DI\Container());
+    (new KLog\Application())->run();
 })();
