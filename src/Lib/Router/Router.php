@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 namespace KLog\Lib\Router;
 
@@ -10,6 +10,8 @@ use KLog\Exception\ControllerNotFoundException;
 use KLog\Exception\RouterNotFoundException;
 use KLog\Lib\Config\ConfigInterface;
 use KLog\Lib\DI\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
@@ -42,13 +44,19 @@ class Router
         }
     }
 
-    public function handel(string $name)
+    public function handel(ServerRequestInterface $psrRequest, ResponseInterface $psrResponse)
+    {
+        $name = '';
+        $handel = $this->match($name);
+        return $handel->index($psrRequest);
+    }
+
+    protected function match(string $name): ControllerInterface
     {
         if (! isset($this->routerMap[$name])) {
             throw new RouterNotFoundException(sprintf('%s Not Found.', $name));
         }
-        /** @var ControllerInterface $handel */
-        $handel = $this->routerMap[$name];
-        return $handel->index();
+        /* @var ControllerInterface $handel */
+        return $this->routerMap[$name];
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 use KLog\Controller\CpuController;
 use KLog\Controller\MemController;
@@ -13,8 +13,6 @@ use KLog\Lib\Logger\Logger;
 use KLog\Lib\Logger\LoggerInterface;
 use KLog\Lib\Router\Listener\RouterParserListener;
 use KLog\Server\Listener\ServerListener;
-use KLog\Server\Listener\WebSocketClosedListener;
-use KLog\Server\Listener\WebSocketReceivedListener;
 
 return [
     'enable' => true,
@@ -29,8 +27,6 @@ return [
     ],
     'listeners' => [
         ServerListener::class,
-        WebSocketReceivedListener::class,
-        WebSocketClosedListener::class,
         RouterParserListener::class,
     ],
     'router' => [

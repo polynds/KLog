@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 namespace KLog\Lib\Router;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 interface ControllerInterface
 {
-    public function index(): array;
+    public function index(ServerRequestInterface $request): array;
 }

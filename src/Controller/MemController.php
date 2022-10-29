@@ -6,9 +6,11 @@ declare(strict_types=1);
  */
 namespace KLog\Controller;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 class MemController extends AbstractController
 {
-    public function index(): array
+    public function index(ServerRequestInterface $request): array
     {
         $str = shell_exec('more /proc/meminfo');
         $pattern = '/(.+):\\s*([0-9]+)/';

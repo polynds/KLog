@@ -9,6 +9,7 @@ namespace KLog\Server;
 use KLog\Lib\Config\ConfigInterface;
 use KLog\Lib\Event\EventDispatcher;
 use KLog\Lib\Logger\LoggerInterface;
+use KLog\Server\Event\RouterDispatchEvent;
 use KLog\Server\Event\ServerStartEvent;
 use KLog\Server\Event\ServerStopEvent;
 use Swoole\Coroutine;
@@ -55,6 +56,7 @@ class Server
     protected function handleHttp()
     {
         $this->httpServer->handle('/', function (Request $request, Response $response) {
+            $this->eventDispatcher->dispatch(new RouterDispatchEvent($request, $response));
             $response->end('hello world');
         });
     }
