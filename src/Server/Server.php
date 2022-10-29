@@ -70,6 +70,7 @@ class Server
                 return;
             }
             $data = $this->router->handel($action);
+            $this->logger->info($data);
             $response->end(Json::encode($data));
         });
     }

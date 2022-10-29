@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 namespace KLog\Lib\Logger;
 
+use KLog\Lib\Logger\Handel\FileLoggerHandel;
 use KLog\Lib\Logger\Handel\Formatter\SimpleFormatter;
 use KLog\Lib\Logger\Handel\LoggerHandelInterface;
-use KLog\Lib\Logger\Handel\SimpleLoggerHandel;
 
 class Logger extends AbstractLogger
 {
@@ -16,12 +16,12 @@ class Logger extends AbstractLogger
 
     public function __construct()
     {
-        $this->loggerHandel = new SimpleLoggerHandel();
+        $this->loggerHandel = new FileLoggerHandel();
     }
 
     public function call(string $level, $message, array $context = [])
     {
-        $this->loggerHandel->write(new SimpleFormatter($level,$message, $context));
+        $this->loggerHandel->write(new SimpleFormatter($level, $message, $context));
     }
 
     public function emergency($message, array $context = [])

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * happy coding.
+ * happy coding!!!
  */
 namespace KLog\Lib\Logger\Handel\Formatter;
 
@@ -27,6 +27,6 @@ class SimpleFormatter implements FormatterInterface
         if ($this->context) {
             return sprintf('[%s]:%s:[%s]', ucwords($this->level), (string) $this->message, var_export($this->context, true));
         }
-        return sprintf('[%s]:%s', ucwords($this->level), (string) $this->message);
+        return sprintf('[%s]:%s', ucwords($this->level), var_export($this->message, true));
     }
 }
